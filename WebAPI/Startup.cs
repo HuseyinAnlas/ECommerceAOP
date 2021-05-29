@@ -41,11 +41,13 @@ namespace WebAPI
 
             services.AddControllers();
 
-            //İçinde data kullanılmadığında singleyon kullanılması daha doğru.
+            //İçinde data kullanılmadığında singleton kullanılması daha doğru.
             //services.AddSingleton<IProductService, ProductManager>();
             //services.AddSingleton<IProductDal, EfProductDal>();
 
             // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddCors();
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -83,6 +85,11 @@ namespace WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
+
+            app.ConfigureCustomExceptionMiddleware();
+            
+
+            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

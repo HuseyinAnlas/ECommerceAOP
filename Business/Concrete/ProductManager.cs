@@ -61,7 +61,7 @@ namespace Business.Concrete
             //iş kodları
             //yetkişi var mı?
 
-            if (DateTime.Now.Hour == 16)
+            if (DateTime.Now.Hour == 03)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
